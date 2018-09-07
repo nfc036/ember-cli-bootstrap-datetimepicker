@@ -67,7 +67,8 @@ export default Component.extend(DynamicAttributeBindings, {
       viewDate: this.getWithDefault('viewDate', defaults.viewDate),
       viewMode: this.getWithDefault('viewMode', defaults.viewMode),
       widgetParent: this.getWithDefault('widgetParent', defaults.widgetParent),
-      widgetPositioning: this.getWithDefault('widgetPositioning', defaults.widgetPositioning)
+      widgetPositioning: this.getWithDefault('widgetPositioning', defaults.widgetPositioning),
+      defaultDate: this.getWithDefault('defaultDate', defaults.defaultDate)
     }).on('dp.change', e => {
       // Convert moment to js date or default to null
       let newDate = e.date && e.date.toDate() || null;
@@ -103,6 +104,10 @@ export default Component.extend(DynamicAttributeBindings, {
     this.addObserver('timeZone', function() {
       this.$().data('DateTimePicker').timeZone(this.get('timeZone'));
     });
+    
+    this.addObserver('defaultDate', function() {
+      this.$().data('DateTimePicker').defaultDate(this.get('defaultDate'));
+    });
   },
 
   willDestroyElement() {
@@ -114,6 +119,7 @@ export default Component.extend(DynamicAttributeBindings, {
     this.removeObserver('format');
     this.removeObserver('viewMode');
     this.removeObserver('timeZone');
+    this.removeObserver('defaultDate');
 
     // Running the `ember` application embedded might cause the DOM to be cleaned before
     let dateTimePicker = this.$().data('DateTimePicker');
