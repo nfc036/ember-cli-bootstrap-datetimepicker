@@ -72,9 +72,10 @@ export default Component.extend(DynamicAttributeBindings, {
     }).on('dp.change', e => {
       // Convert moment to js date or default to null
       let newDate = e.date && e.date.toDate() || null;
+      this.get('change')(newDate);
 
-      this.set('date', newDate);
-      this.sendAction('change', newDate);
+      // this.set('date', newDate);
+      // this.sendAction('change', newDate);
     });
 
     this.addObserver('date', function() {
