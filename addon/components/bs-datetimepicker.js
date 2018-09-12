@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { computed, get } from '@ember/object';
 import layout from '../templates/components/bs-datetimepicker';
 import DynamicAttributeBindings from '../-private/dynamic-attribute-bindings';
 
@@ -28,6 +28,7 @@ export default Component.extend(DynamicAttributeBindings, {
 
   didInsertElement() {
     this._super(...arguments);
+    let self = this;
 
     let icons = {
       clear: this.getWithDefault('config.icons.clear', defaults.icons.clear),
@@ -72,7 +73,7 @@ export default Component.extend(DynamicAttributeBindings, {
     }).on('dp.change', e => {
       // Convert moment to js date or default to null
       let newDate = e.date && e.date.toDate() || null;
-      this.get('change')(newDate);
+      get(self, 'change')(newDate);
 
       // this.set('date', newDate);
       // this.sendAction('change', newDate);
