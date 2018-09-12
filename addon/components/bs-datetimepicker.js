@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import Component from '@ember/component';
 import { computed, get } from '@ember/object';
-import { isPresent } from '@ember/utils';
 import { assert } from '@ember/debug';
 import layout from '../templates/components/bs-datetimepicker';
 import DynamicAttributeBindings from '../-private/dynamic-attribute-bindings';
