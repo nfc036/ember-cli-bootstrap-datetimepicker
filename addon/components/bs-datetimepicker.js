@@ -1,6 +1,8 @@
 import $ from 'jquery';
 import Component from '@ember/component';
 import { computed, get } from '@ember/object';
+import { isPresent } from '@ember/utils';
+import { assert } from '@ember/debug';
 import layout from '../templates/components/bs-datetimepicker';
 import DynamicAttributeBindings from '../-private/dynamic-attribute-bindings';
 
@@ -25,6 +27,11 @@ export default Component.extend(DynamicAttributeBindings, {
 
     return this.getWithDefault('config.icons.date', defaults.icons.date);
   }),
+  
+  init() {
+    this._super(...arguments);
+    assert('{{bs-datetimepicker}} requires an `change` function', this.get('change') && typeof this.get('change') === 'function');     
+  },
 
   didInsertElement() {
     this._super(...arguments);
