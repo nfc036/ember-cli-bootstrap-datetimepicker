@@ -79,8 +79,10 @@ export default Component.extend(DynamicAttributeBindings, {
     }).on('dp.change', e => {
       // Convert moment to js date or default to null
       let newDate = e.date && e.date.toDate() || null;
-      get(self, 'change')(newDate);
-
+      if (newDate==null || get(self, 'date') === null || newDate.valueOf() !== get(self, 'date').valueOf()) {
+        // raise change if newDate != oldDate
+        get(self, 'change')(newDate);
+      }
       // this.set('date', newDate);
       // this.sendAction('change', newDate);
     });
