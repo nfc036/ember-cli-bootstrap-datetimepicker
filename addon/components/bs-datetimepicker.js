@@ -4,6 +4,7 @@ import { computed, get } from '@ember/object';
 import { assert } from '@ember/debug';
 import layout from '../templates/components/bs-datetimepicker';
 import DynamicAttributeBindings from '../-private/dynamic-attribute-bindings';
+import { isNone } from '@ember/utils';
 
 const {
   defaults
@@ -79,7 +80,7 @@ export default Component.extend(DynamicAttributeBindings, {
     }).on('dp.change', e => {
       // Convert moment to js date or default to null
       let newDate = e.date && e.date.toDate() || null;
-      if (newDate==null || get(self, 'date') === null || newDate.valueOf() !== get(self, 'date').valueOf()) {
+      if (isNone(newDate) || isNone(get(self, 'date')) || newDate.valueOf() !== get(self, 'date').valueOf()) {
         // raise change if newDate != oldDate
         get(self, 'change')(newDate);
       }
